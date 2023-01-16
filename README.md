@@ -11,4 +11,4 @@
 Реализован с использованием flexbox, grid, позиционированием, анимацией и медиазапросами. Файловая структура организована по Nested БЭМ. Открытие и закрытие попапа, редактирование информации о себе реализовано с помощью JavaScript.
 Проект реализован по макету [Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
 ### GitHub pages
-[Ссылка на проект](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)    
+[Ссылка на проект](https://anutak0rnienko.github.io/mesto/index.html)
