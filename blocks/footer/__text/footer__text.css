@@ -10,9 +10,9 @@
     line-height: 22px;
  }
 
-@media screen and (max-width: 320px){
+@media screen and (max-width: 610px){
     .footer__text {
-        ax-width: 282px;
+        max-width: 282px;
         font-size: 14px;
         line-height: 17px;
     }

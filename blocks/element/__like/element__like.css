@@ -4,4 +4,10 @@
     background-position: 50%;
     width: 22px;
     height: 19px;
+    border: 0;
+    background-color: transparent;
+ }
+
+ .element__like:hover {
+    opacity: 0.5;
  }

@@ -4,8 +4,14 @@
     padding: 0;
     margin: 45px auto 40px;
 }
+@media screen and (max-width: 910px){
+    .header {
+        max-width: 910px;
+        margin: 28px 30px 42px;
+    }
+}
 
-@media screen and (max-width: 320px){
+@media screen and (max-width: 610px){
     .header {
         max-width: 320px;
         margin: 28px auto 42px;
