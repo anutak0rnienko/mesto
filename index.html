@@ -13,12 +13,12 @@
     </header>
     <main class="main-content">
         <section class="profile">
-            <div class="profile__avatar">
-                <img src="images/image.jpg" alt="Портрет Жака Ива Кусто" class="profile__avatar-image">
-            </div>
+            <img src="images/image.jpg" alt="Портрет Жака Ива Кусто" class="profile__avatar-image">
             <article class="profile__info">
-                <h1 class="profile__name">Жак-Ив Кусто</h1>
-                <button type="button" class="profile__edit-button"></button>
+                <div class="profile__info-name">
+                    <h1 class="profile__name">Жак-Ив Кусто</h1>
+                    <button type="button" class="profile__edit-button"></button>
+                </div>
                 <p class="profile__text">Исследователь океана</p>
             </article>
             <button type="button" class="profile__add-button"></button>
@@ -73,17 +73,17 @@
     </footer>
     <section class="popup">
         <div class="popup__container">
-            <button type="submit" class="popup__close"></button>
-            <form class="popup__form">
+            <button type="button" class="popup__close"></button>
+            <h2 class="popup__title">Редактировать профиль</h2>
+            <form name="form1" class="popup__form">
                 <fieldset class="popup__fieldset">
-                    <legend class="popup__title">Редактировать профиль</legend>
-                    <input value="" id="nameInput" type="text" class="popup__input popup__input_username" name="username" placeholder="Имя пользователя" required>
-                    <input value="" id="jobInput" type="text" class="popup__input popup__input_job" name="job" placeholder="Род деятельности" required>
+                    <input value="" id="nameInput" type="text" class="popup__input popup__input_user_name" name="username" placeholder="Имя пользователя" required>
+                    <input value="" id="jobInput" type="text" class="popup__input popup__input_user_job" name="job" placeholder="Род деятельности" required>
                     <button class="popup__button" type="submit">Сохранить</button>
                  </fieldset>
              </form>
         </div>
     </section>
-    <script src="./pages/index.js"></script> 
+    <script src="./scripts/index.js"></script> 
 </body>
 </html>

@@ -9,22 +9,23 @@
     background-color: transparent;
     background-position: 50%;
     margin: 0 0 0 auto;
- }
+    cursor: pointer;
+}
 
- .profile__add-button:hover {
+.profile__add-button:hover {
     opacity: 0.6;
- }
+}
 
- @media screen and (max-width: 910px){
+@media screen and (max-width: 910px){
     .profile__add-button {
         width: 300px;
-        margin: 36px 0 0 0;
+        margin: 32px 0 0 0;
     }
 }
 
 @media screen and (max-width: 610px){
     .profile__add-button {
         width: 282px;
-        margin: 36px 0 0 0;
+        background-size: 16px 16px;
     }
 }
