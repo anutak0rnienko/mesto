@@ -23,8 +23,8 @@
             </article>
             <button type="button" class="profile__add-button"></button>
         </section>  
-        <section class="elements">
-            <article class="element">
+       <section class="elements">
+            <!--<article class="element">
                 <img src="images/kirill-pershin-1088404-unsplash.jpg" alt="Замок в Карачаевске" class="element__image">
                 <div class="element__info">
                     <h2 class="element__text">Карачаевск</h2>
@@ -65,7 +65,7 @@
                     <h2 class="element__text">Карачаевск</h2>
                     <button class="element__like" type="button"></button>
                 </div>
-            </article>
+            </article>-->
         </section>
     </main>
     <footer class="footer">
@@ -84,6 +84,29 @@
              </form>
         </div>
     </section>
-    <script src="./scripts/index.js"></script> 
+    <section class="popup popup__addition">
+        <div class="popup__container">
+            <button type="button" class="popup__close popup__close_mesto"></button>
+            <h2 class="popup__title">Новое место</h2>
+            <form name="form1" class="popup__form">
+                <fieldset class="popup__fieldset">
+                    <input value="" id="textInput" type="text" class="popup__input popup__input_user_name popup__input_mesto_title"  name="title" placeholder="Название" required>
+                    <input value="" id="imageInput" type="text" class="popup__input popup__input_user_job popup__input_mesto_image" name="image" placeholder="Ссылка на картинку" required>
+                    <button class="popup__button popup__button_mesto" type="submit">Создать</button>
+                 </fieldset>
+             </form>
+        </div>
+    </section>
+    <template id="popup-template">
+        <article class="element">
+            <img src="" alt="Картинка" class="element__image">
+            <div class="element__info">
+                <h2 class="element__text"></h2>
+                <button class="element__like" type="button"></button>
+                <button class="element__delete" type="button"></button>
+            </div>
+        </article>
+    </template>
+    <script src="./scripts/index.js"></script>
 </body>
 </html>
