@@ -23,7 +23,7 @@ const popupImgCaption = document.querySelector('.popup__img-caption');
 //открытие и закрытие попапов//
 
 function openPopup() {
-    popupEditContainer.classList.add("popup_opened");
+    openAllPopup(popupEditContainer);
     nameInput.value = popupEditName.textContent;
     jobInput.value = popupEditText.textContent;
 };
@@ -33,7 +33,7 @@ function closePopup(evt) {
 };
 
 function openPopupAdd() {
-    popupAddition.classList.add("popup_opened");
+    openAllPopup(popupAddition);
     nameInput.value = popupEditName.textContent;
     jobInput.value = popupEditText.textContent;
 };
@@ -111,6 +111,7 @@ function createCard(cardData) {
     const card = templateCard.cloneNode(true); //копия карточки 
     card.querySelector('.element__text').textContent = cardData.name;
     card.querySelector('.element__image').src = cardData.link;
+    card.querySelector('.element__image').alt = cardData.name;
     card.querySelector('.element__delete').addEventListener('click', HandleCardDelete);
     card.querySelector('.element__like').addEventListener('click', (evt) => {
         if (evt.target.classList.contains('element__like_active')) {
@@ -136,9 +137,11 @@ function HandleLikeClick(evt) {
 };
 
 function HandleImgOpen(evt) {
-    popupTypeImg.classList.add("popup_opened");
-    // function openPopup{popupTypeImg};
+    openAllPopup(popupTypeImg);
     popupImg.src = evt.target.src;
     popupImgCaption.textContent = evt.target.closest('.element').querySelector('.element__text').textContent;
 };
 
+function openAllPopup(elem) {
+    elem.classList.add("popup_opened");
+};
