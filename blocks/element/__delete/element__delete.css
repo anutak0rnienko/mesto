@@ -9,3 +9,8 @@ right: 20px;
 width: 18px;
 height: 19px;
 }
+
+.element__delete:hover {
+    opacity: .6;
+    cursor: pointer;
+}

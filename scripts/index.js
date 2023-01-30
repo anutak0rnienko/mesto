@@ -11,16 +11,26 @@ const popupAddition = document.querySelector('.popup_type_add-place');
 const popupBtnMesto = document.querySelector('.popup__close_mesto');
 const popupTypeImg = document.querySelector('.popup_type_image');
 const popupBtnImage = document.querySelector('.popup__close_button_image');
+const template = document.querySelector('#card-template').content.querySelector('.element');
+const elements = document.querySelector('.elements');
+const elementBtn = document.querySelector('.popup__button_mesto');
+const elementTitle = document.querySelector('.popup__input_mesto_title');
+const elementImage = document.querySelector('.popup__input_mesto_image');
+const popupImg = document.querySelector('.popup__image'); 
+const popupImgCaption = document.querySelector('.popup__img-caption');
+  
+
 //открытие и закрытие попапов//
 
 function openPopup() {
     popupContainer.classList.add("popup_opened");
     nameInput.value = name.textContent;
     jobInput.value = text.textContent;
-}
+};
+
 function closePopup(evt) {
     evt.target.closest('.popup').classList.remove("popup_opened");
-}
+};
 
 function openPopupAdd() {
     popupAddition.classList.add("popup_opened");
@@ -37,7 +47,7 @@ function handleFormSubmit (evt) {
     name.textContent = nameInput.value;
     text.textContent = jobInput.value;
     closePopup(evt);
-}
+};
 
 //Слушатели событий//
 
@@ -46,7 +56,7 @@ popupBtnClose.addEventListener("click", closePopup);
 formElement.addEventListener('submit', handleFormSubmit); 
 popupBtnAdd.addEventListener('click', openPopupAdd);
 popupBtnMesto.addEventListener("click", closePopup);
-popupBtnImage.addEventListener('click', closePopup)
+popupBtnImage.addEventListener('click', closePopup);
 
 
 
@@ -76,25 +86,17 @@ const initialCards = [
       link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
   ]; 
-
-  const template = document.querySelector('#card-template').content.querySelector('.element');
-  const elements = document.querySelector('.elements');
-  const elementBtn = document.querySelector('.popup__button_mesto');
-  const elementTitle = document.querySelector('.popup__input_mesto_title');
-  const elementImage = document.querySelector('.popup__input_mesto_image');
   
 
-  function rendercards() {
+function rendercards() {
     initialCards.forEach((item) => {
-        
         elements.append(createCard(item));
-    })
-
-}
-  rendercards()
+    });
+};
+rendercards();
 
   //обработчик на второй попап
-  elementBtn.addEventListener('click', (evt) => {
+elementBtn.addEventListener('click', (evt) => {
     evt.preventDefault();
         elements.prepend(createCard(
             {
@@ -103,8 +105,7 @@ const initialCards = [
             }
         ));
         closePopup(evt)
-  });
- 
+});
 
 function createCard(item) {
     const card = template.cloneNode(true); //копия карточки 
@@ -119,26 +120,24 @@ function createCard(item) {
         }
     });
     card.querySelector('.element__image').addEventListener('click', openImg);
-    return card;
-    
-}
+    return card;  
+};
 
 function deleteCard(evt) {
         evt.target.closest('.element').remove();
-}
+};
 
 function addLike(evt) {
     evt.target.classList.add('element__like_active');
-}
+};
+
  function deleteLike(evt) {
     evt.target.classList.remove('element__like_active');
- }
+};
 
 function openImg(evt) {
     popupTypeImg.classList.add("popup_opened");
     popupImg.src = evt.target.src;
     popupImgCaption.textContent = evt.target.closest('.element').querySelector('.element__text').textContent;
-}
-const popupImg = document.querySelector('.popup__image'); 
-const popupImgCaption = document.querySelector('.popup__img-caption');
-// const elementText = document.querySelector('.element__text')
+};
+
