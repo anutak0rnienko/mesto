@@ -35,3 +35,12 @@
 @import url(../blocks/popup/__img-caption/popup__img-caption.css);
 @import url(../blocks/popup/__image/popup__image.css);
 @import url(../blocks/popup/__figure/popup__figure.css);
+@import url(../blocks/popup/__input/_form/popup__input_name_invalid.css);
+@import url(../blocks/popup/__form-error/popup__form-error.css);
+
+.popup__disabled {
+    opacity: 0.2;
+color: #000000;
+border: 1px solid #000000;
+background: #FFFFFF;
+}

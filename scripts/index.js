@@ -26,6 +26,7 @@ function openPopupEdit() {
 
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
+  document.removeEventListener("keydown", popupKeyHandlerEsc);
 };
 
 function closePopupEdit() {
@@ -99,7 +100,7 @@ function handleCardDelete(evt) {
   evt.target.closest('.element').remove();
 };
 
- function handleLikeClick(evt) {
+function handleLikeClick(evt) {
   evt.target.classList.toggle('element__like_active');
 };
 
@@ -111,5 +112,31 @@ function handleImgOpen(evt) {
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
+  document.addEventListener("keydown", popupKeyHandlerEsc);
 };
 
+
+function popupKeyHandlerEsc(evt) {
+  if (evt.key === "Escape") {
+    const popupFormOpen = document.querySelector(".popup_opened");
+    closePopup(popupFormOpen);
+  };
+};
+
+popupTypeImg.addEventListener('click', (evt) => {
+  if(evt.target === popupTypeImg || evt.target === popupBtnImage) {
+    closePopup(popupTypeImg);
+  };
+});
+
+popupEditContainer.addEventListener('click', (evt) => {
+  if(evt.target === popupEditContainer || evt.target === popupEditClose) {
+    closePopup(popupEditContainer);
+  };
+});
+
+popupAddition.addEventListener('click', (evt) => {
+  if(evt.target === popupAddition || evt.target === popupBtnMesto) {
+    closePopup(popupAddition);
+  };
+});

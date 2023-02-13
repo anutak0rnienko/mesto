@@ -33,24 +33,27 @@
         <div class="popup__container">
             <button type="button" class="popup__close popup__close_edit"></button>
             <h2 class="popup__title">Редактировать профиль</h2>
-            <form name="form1" class="popup__form">
+            <form name="form" class="popup__form" novalidate>
                 <fieldset class="popup__fieldset">
-                    <input value="" id="nameInput" type="text" class="popup__input popup__input_user_name" name="username" placeholder="Имя пользователя" required>
-                    <input value="" id="jobInput" type="text" class="popup__input popup__input_user_job" name="job" placeholder="Род деятельности" required>
-                    <button class="popup__button" type="submit">Сохранить</button>
+                    <input value="" id="nameInput" type="text" class="popup__input popup__input_user_name" name="username" placeholder="Имя пользователя" required minlength="2" maxlength="40">
+                    <span class="popup__form-error popup__form-error_edit_name"></span>
+                    <input value="" id="jobInput" type="text" class="popup__input popup__input_user_job" name="job" placeholder="Род деятельности" required minlength="2" maxlength="200">
+                    <span class="popup__form-error popup__form-error_edit_job"></span>
+                    <button class="popup__button popup__button_edit" type="submit" disabled>Сохранить</button>
                  </fieldset>
              </form>
-        </div>
     </section>
     <section class="popup popup_type_add-place">
         <div class="popup__container">
             <button type="button" class="popup__close popup__close_mesto"></button>
             <h2 class="popup__title">Новое место</h2>
-            <form name="form1" class="popup__form">
+            <form name="form" class="popup__form" novalidate>
                 <fieldset class="popup__fieldset">
-                    <input value="" id="textInput" type="text" class="popup__input popup__input_user_name popup__input_mesto_title"  name="title" placeholder="Название" required>
+                    <input value="" id="textInput" type="text" class="popup__input popup__input_user_name popup__input_mesto_title"  name="title" placeholder="Название" required minlength="2" maxlength="30">
+                    <span class="popup__form-error popup__form-error_mesto_title"></span>
                     <input value="" id="imageInput" type="url" class="popup__input popup__input_user_job popup__input_mesto_image" name="image" placeholder="Ссылка на картинку" required>
-                    <button class="popup__button popup__button_mesto" type="submit">Создать</button>
+                    <span class="popup__form-error popup__form-error_mesto_image"></span>
+                    <button class="popup__button popup__button_mesto" type="submit" disabled>Создать</button>
                  </fieldset>
              </form>
         </div>
@@ -74,6 +77,7 @@
             </div>
         </article>
     </template>
+    <script src="./scripts/validate.js"></script>
     <script src="./scripts/cards.js"></script>
     <script src="./scripts/index.js"></script>
 </body>
