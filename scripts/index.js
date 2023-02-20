@@ -16,6 +16,8 @@ const elementTitle = document.querySelector('.popup__input_mesto_title');
 const elementImage = document.querySelector('.popup__input_mesto_image');
 const popupImg = document.querySelector('.popup__image'); 
 const popupImgCaption = document.querySelector('.popup__img-caption');
+const popupBtnMestoInactive = document.querySelector('.popup__button_mesto')
+
   
 //открытие и закрытие попапов//
 function openPopupEdit() {
@@ -45,6 +47,7 @@ function openPopupAdd() {
   openPopup(popupAddition);
   nameInput.value = popupEditName.textContent;
   jobInput.value = popupEditText.textContent;
+  noActiveButton(popupBtnMestoInactive);
 };
 
 //кнопка сохранить//
