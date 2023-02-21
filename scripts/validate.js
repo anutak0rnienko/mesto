@@ -13,14 +13,7 @@ const enableValidationForm = ({
                 elementInput.addEventListener('input', (evt) => {
                     const field = evt.target;
                     const formError = elementForm.querySelector(`.popup__form-error-${field.name}`);
-                    const fieldValid = field.validity.valid;
-                    formError.textContent = field.validationMessage;
-                    if (!fieldValid) {
-                    field.classList.add(inputErrorClass);
-                    }
-                    else {
-                    field.classList.remove(inputErrorClass);
-                    }
+                    checkInputValidity(elementInput, formError, inputErrorClass);
                     const buttonForm = hasInvalidInput(inputs);
                     toggleButtonForm(buttonElement, inactiveButtonClass, buttonForm);
                 })
@@ -58,6 +51,16 @@ const handleFormSubmit =(evt) => {
 function noActiveButton(buttonElement) {
     buttonElement.classList.add("popup__button_disabled");
     buttonElement.setAttribute('disabled', true);
+};
+
+const checkInputValidity = (elementInput, formError, inputErrorClass) => { 
+    if (elementInput.validity.valid) {
+        elementInput.classList.remove(inputErrorClass);
+        formError.textContent = '';
+    } else {
+        elementInput.classList.add(inputErrorClass);
+        formError.textContent = elementInput.validationMessage;
+    }
 };
 
 const validationConfiguration = enableValidationForm({

@@ -16,7 +16,8 @@ const elementTitle = document.querySelector('.popup__input_mesto_title');
 const elementImage = document.querySelector('.popup__input_mesto_image');
 const popupImg = document.querySelector('.popup__image'); 
 const popupImgCaption = document.querySelector('.popup__img-caption');
-const popupBtnMestoInactive = document.querySelector('.popup__button_mesto')
+const popupBtnMestoInactive = document.querySelector('.popup__button_mesto');
+const popupMesto = document.querySelector('.popup__form-mesto');
 
   
 //открытие и закрытие попапов//
@@ -36,17 +37,18 @@ function closePopupEdit() {
 };
 
 function closePopupAdd() {
-  closePopup(popupAddition)
+  closePopup(popupAddition);
 };
 
 function closePopupImg() {
-  closePopup(popupTypeImg)
+  closePopup(popupTypeImg);
 };
 
 function openPopupAdd() {
   openPopup(popupAddition);
   nameInput.value = popupEditName.textContent;
   jobInput.value = popupEditText.textContent;
+  popupMesto.reset();
   noActiveButton(popupBtnMestoInactive);
 };
 
