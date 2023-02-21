@@ -33,10 +33,10 @@ function disableSbmButton(buttonElement, inactiveButtonClass) {
 
 const toggleButtonForm = (buttonElement, inactiveButtonClass, buttonForm) => {
     if (buttonForm) {
-        disableSbmButton(buttonElement, inactiveButtonClass)
+        disableSbmButton(buttonElement, inactiveButtonClass);
     }
     else {
-        enableSbmButton(buttonElement, inactiveButtonClass)
+        enableSbmButton(buttonElement, inactiveButtonClass);
     }
 };
 

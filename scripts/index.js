@@ -18,6 +18,7 @@ const popupImg = document.querySelector('.popup__image');
 const popupImgCaption = document.querySelector('.popup__img-caption');
 const popupBtnMestoInactive = document.querySelector('.popup__button_mesto');
 const popupMesto = document.querySelector('.popup__form-mesto');
+const popupCntr = document.querySelector('.popup__container_type_image');
 
   
 //открытие и закрытие попапов//
