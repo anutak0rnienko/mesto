@@ -16,10 +16,8 @@ const elementTitle = document.querySelector('.popup__input_mesto_title');
 const elementImage = document.querySelector('.popup__input_mesto_image');
 const popupImg = document.querySelector('.popup__image'); 
 const popupImgCaption = document.querySelector('.popup__img-caption');
-const popupBtnMestoInactive = document.querySelector('.popup__button_mesto');
-const profileForm = document.forms.form;
+const cardForm = document.forms['card-form'];
 
-  
 //открытие и закрытие попапов//
 function openPopupEdit() {
   openPopup(popupEditContainer);
@@ -34,8 +32,6 @@ function closePopup(popup) {
 
 function openPopupAdd() {
   openPopup(popupAddition);
-  profileForm.reset();
-  disableSbmButton(popupBtnMestoInactive, 'popup__button_disabled');
 };
 
 //кнопка сохранить//
@@ -70,6 +66,7 @@ function handleFormSubmitCard (evt) {
       }
     ));
     closePopup(popupAddition);
+    evt.target.reset();
 };
 
 function createCard(cardData) {
@@ -103,7 +100,6 @@ function openPopup(popup) {
   popup.classList.add("popup_opened");
   document.addEventListener("keydown", handlerEscape);
 };
-
 
 function handlerEscape(evt) {
   if (evt.key === "Escape") {
