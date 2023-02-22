@@ -17,8 +17,7 @@ const elementImage = document.querySelector('.popup__input_mesto_image');
 const popupImg = document.querySelector('.popup__image'); 
 const popupImgCaption = document.querySelector('.popup__img-caption');
 const popupBtnMestoInactive = document.querySelector('.popup__button_mesto');
-const popupMesto = document.querySelector('.popup__form-mesto');
-const popupCntr = document.querySelector('.popup__container_type_image');
+const profileForm = document.forms.form;
 
   
 //открытие и закрытие попапов//
@@ -30,27 +29,13 @@ function openPopupEdit() {
 
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
-  document.removeEventListener("keydown", popupKeyHandlerEsc);
-};
-
-function closePopupEdit() {
-  closePopup(popupEditContainer);
-};
-
-function closePopupAdd() {
-  closePopup(popupAddition);
-};
-
-function closePopupImg() {
-  closePopup(popupTypeImg);
+  document.removeEventListener("keydown", handlerEscape);
 };
 
 function openPopupAdd() {
   openPopup(popupAddition);
-  nameInput.value = popupEditName.textContent;
-  jobInput.value = popupEditText.textContent;
-  popupMesto.reset();
-  noActiveButton(popupBtnMestoInactive);
+  profileForm.reset();
+  disableSbmButton(popupBtnMestoInactive, 'popup__button_disabled');
 };
 
 //кнопка сохранить//
@@ -64,11 +49,8 @@ function handleFormSubmitEdit (evt) {
 
 //Слушатели событий//
 popupEditOpen.addEventListener("click", openPopupEdit);
-popupEditClose.addEventListener("click", closePopupEdit);
 popupEditContainer.addEventListener('submit', handleFormSubmitEdit); 
 popupBtnAdd.addEventListener('click', openPopupAdd);
-popupBtnMesto.addEventListener("click", closePopupAdd);
-popupBtnImage.addEventListener('click', closePopupImg);
 popupAddition.addEventListener('submit', handleFormSubmitCard);
   
 function renderСards() {
@@ -113,36 +95,32 @@ function handleLikeClick(evt) {
 function handleImgOpen(evt) {
   openPopup(popupTypeImg);
   popupImg.src = evt.target.src;
-  popupImgCaption.textContent = evt.target.closest('.element').querySelector('.element__text').textContent;
+  popupImg.alt = evt.target.alt;
+  popupImgCaption.textContent = evt.target.alt;
 };
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
-  document.addEventListener("keydown", popupKeyHandlerEsc);
+  document.addEventListener("keydown", handlerEscape);
 };
 
 
-function popupKeyHandlerEsc(evt) {
+function handlerEscape(evt) {
   if (evt.key === "Escape") {
     const popupFormOpen = document.querySelector(".popup_opened");
     closePopup(popupFormOpen);
   };
 };
 
-popupTypeImg.addEventListener('click', (evt) => {
-  if(evt.target === popupTypeImg || evt.target === popupBtnImage) {
-    closePopup(popupTypeImg);
-  };
-});
-
-popupEditContainer.addEventListener('click', (evt) => {
-  if(evt.target === popupEditContainer || evt.target === popupEditClose) {
-    closePopup(popupEditContainer);
-  };
-});
-
-popupAddition.addEventListener('click', (evt) => {
-  if(evt.target === popupAddition || evt.target === popupBtnMesto) {
-    closePopup(popupAddition);
-  };
+//объединение обработчиков оверлея и крестиков
+const popups = document.querySelectorAll('.popup');
+popups.forEach((popup) => {
+    popup.addEventListener('mousedown', (evt) => {
+        if (evt.target.classList.contains('popup_opened')) {
+          closePopup(popup);
+        };
+        if (evt.target.classList.contains('popup__close')) {
+          closePopup(popup);
+        };
+    });
 });

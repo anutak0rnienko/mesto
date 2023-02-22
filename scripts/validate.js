@@ -8,14 +8,18 @@ const enableValidationForm = ({
         forms.forEach((elementForm) => {
             const inputs = Array.from(elementForm.querySelectorAll(inputSelector));
             const buttonElement = elementForm.querySelector(submitButtonSelector);
+            disableSbmButton(buttonElement, inactiveButtonClass);
+            elementForm.addEventListener('reset', () => {
+                disableSbmButton(buttonElement, inactiveButtonClass);
+            });
             elementForm.addEventListener('submit', handleFormSubmit);
             inputs.forEach((elementInput) => {
                 elementInput.addEventListener('input', (evt) => {
                     const field = evt.target;
                     const formError = elementForm.querySelector(`.popup__form-error-${field.name}`);
                     checkInputValidity(elementInput, formError, inputErrorClass);
-                    const buttonForm = hasInvalidInput(inputs);
-                    toggleButtonForm(buttonElement, inactiveButtonClass, buttonForm);
+                    const isValid = hasInvalidInput(inputs);
+                    toggleButtonForm(buttonElement, inactiveButtonClass, isValid);
                 })
             })
         })
@@ -31,8 +35,8 @@ function disableSbmButton(buttonElement, inactiveButtonClass) {
     buttonElement.classList.add(inactiveButtonClass);
 };
 
-const toggleButtonForm = (buttonElement, inactiveButtonClass, buttonForm) => {
-    if (buttonForm) {
+const toggleButtonForm = (buttonElement, inactiveButtonClass, isValid) => {
+    if (isValid) {
         disableSbmButton(buttonElement, inactiveButtonClass);
     }
     else {
@@ -47,11 +51,6 @@ const hasInvalidInput = (inputs) => {
 const handleFormSubmit =(evt) => {
     evt.preventDefault();
 };
-          
-function noActiveButton(buttonElement) {
-    buttonElement.classList.add("popup__button_disabled");
-    buttonElement.setAttribute('disabled', true);
-};
 
 const checkInputValidity = (elementInput, formError, inputErrorClass) => { 
     if (elementInput.validity.valid) {
@@ -63,7 +62,7 @@ const checkInputValidity = (elementInput, formError, inputErrorClass) => {
     }
 };
 
-const validationConfiguration = enableValidationForm({
+const validationConfig = enableValidationForm({
     formSelector: 'form',
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__button',
