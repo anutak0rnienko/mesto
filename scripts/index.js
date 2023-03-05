@@ -1,3 +1,9 @@
+import Card from "./cards.js";
+
+// const card = new Card;
+// card.getTemplate();
+
+
 const popupEditOpen = document.querySelector(".profile__edit-button");
 const popupEditContainer = document.querySelector(".popup_type_edit-profile");
 const popupEditClose = document.querySelector(".popup__close_edit");

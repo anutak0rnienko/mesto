@@ -24,3 +24,14 @@ const initialCards = [
       link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
 ]; 
+
+export default class Card {
+  constructor (data) {
+    this._name = data.name;
+    this._link = data.link;
+  }
+
+//   getTemplate() {
+// console.log(this);
+//   }
+}
