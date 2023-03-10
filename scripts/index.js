@@ -1,7 +1,7 @@
 import Card from "./Сard.js";
 import FormValidator from "./FormValidator.js";
 import { initialCards } from "./constants.js";
-// import { validationConfig } from "./constants.js"
+import { validationConfig } from "./constants.js"
 
 const popupEditOpen = document.querySelector(".profile__edit-button");
 const popupEditContainer = document.querySelector(".popup_type_edit-profile");
@@ -22,15 +22,7 @@ const elementImage = document.querySelector('.popup__input_mesto_image');
 const popupImg = document.querySelector('.popup__image'); 
 const popupImgCaption = document.querySelector('.popup__img-caption');
 const cardForm = document.forms['card-form'];
-
-// const selectors = {
-//   template: '#card-template',
-//   card: '.element',
-//   image: '.element__image',
-//   text: '.element__text',
-//   buttonLike: '.element__like',
-//   buttonDelete: '.element__delete'
-// }
+const formValidation = document.forms['form'];
 
 //открытие и закрытие попапов//
 function openPopupEdit() {
@@ -88,9 +80,6 @@ function handleFormSubmitCard (evt) {
 //   return card;  
 // };
 
-
-/////////////////////////////////////////////////////
-
 const createCard = (cardData) => {
   const card = new Card(cardData, handleImgOpen);
   return card.createCardElement();
@@ -102,8 +91,6 @@ function renderСards() {
   });
   };
   renderСards();
-///////////////////////////////////////////////////
-
 
 // function handleCardDelete(evt) {
 //   evt.target.closest('.element').remove();
@@ -118,7 +105,7 @@ function handleImgOpen(image) {
   popupImg.src = image.link;
   popupImg.alt = image.name;
   popupImgCaption.textContent = image.name;
-}; //NEW//
+};
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
@@ -145,3 +132,9 @@ popups.forEach((popup) => {
     });
 });
 
+//Валидация
+const validationFormEdit = new FormValidator(validationConfig, formValidation);
+validationFormEdit.enableValidationForm();
+
+const validationFormAdd = new FormValidator(validationConfig, cardForm);
+validationFormAdd.enableValidationForm();

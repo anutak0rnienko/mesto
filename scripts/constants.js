@@ -25,10 +25,10 @@ export const initialCards = [
     }
 ]; 
 
-// export const validationConfig = enableValidationForm({
-//     formSelector: 'form',
-//     inputSelector: '.popup__input',
-//     submitButtonSelector: '.popup__button',
-//     inactiveButtonClass: 'popup__button_disabled',
-//     inputErrorClass: 'popup__input_form_invalid'
-// });
+export const validationConfig = ({
+    formSelector: 'form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'popup__input_form_invalid'
+});

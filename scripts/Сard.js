@@ -4,7 +4,7 @@ export default class Card {
     this._link = data.link;
     this._template = document.querySelector('#card-template').content.querySelector('.element');
     this._handleImgOpen = handleImgOpen;
-  }
+  };
 
   _getCardTemplate() {
     this._element = this._template.cloneNode(true);
