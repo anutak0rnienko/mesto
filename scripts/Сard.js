@@ -1,13 +1,13 @@
 export default class Card {
-  constructor (data, handleImgOpen) {
+  constructor (data, template, handleImgOpen) {
     this._name = data.name;
     this._link = data.link;
-    this._template = document.querySelector('#card-template').content.querySelector('.element');
+    this._template = template;
     this._handleImgOpen = handleImgOpen;
   };
 
   _getCardTemplate() {
-    this._element = this._template.cloneNode(true);
+    this._element = document.querySelector(this._template).content.querySelector('.element').cloneNode(true);
     return this._element;
   };
 
@@ -39,7 +39,7 @@ export default class Card {
   };
 
   _handleCardDelete() {
-    this._element.closest('.element').remove();
+    this._element.remove();
   };
 };
 

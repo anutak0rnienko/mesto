@@ -16,6 +16,7 @@ const popupBtnMesto = document.querySelector('.popup__close_mesto');
 const popupTypeImg = document.querySelector('.popup_type_image');
 const popupBtnImage = document.querySelector('.popup__close_button_image');
 const templateCard = document.querySelector('#card-template').content.querySelector('.element');
+const templateSelector = document.querySelector('#card-template');
 const cardsContainer = document.querySelector('.elements');
 const elementTitle = document.querySelector('.popup__input_mesto_title');
 const elementImage = document.querySelector('.popup__input_mesto_image');
@@ -33,7 +34,7 @@ function openPopupEdit() {
 
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
-  document.removeEventListener("keydown", handlerEscape);
+  document.removeEventListener("keydown", handleEscape);
 };
 
 function openPopupAdd() {
@@ -81,7 +82,7 @@ function handleFormSubmitCard (evt) {
 // };
 
 const createCard = (cardData) => {
-  const card = new Card(cardData, handleImgOpen);
+  const card = new Card(cardData, '#card-template', handleImgOpen);
   return card.createCardElement();
 };
 
@@ -109,10 +110,10 @@ function handleImgOpen(image) {
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
-  document.addEventListener("keydown", handlerEscape);
+  document.addEventListener("keydown", handleEscape);
 };
 
-function handlerEscape(evt) {
+function handleEscape(evt) {
   if (evt.key === "Escape") {
     const popupFormOpen = document.querySelector(".popup_opened");
     closePopup(popupFormOpen);
