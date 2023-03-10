@@ -71,3 +71,8 @@ const validationConfig = enableValidationForm({
 });
 
 
+export default class FormValidator {
+    constructor() {
+
+    }
+}
