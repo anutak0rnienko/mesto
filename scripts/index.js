@@ -1,7 +1,10 @@
 import Card from "./Сard.js";
 import FormValidator from "./FormValidator.js";
 import { initialCards } from "./constants.js";
-import { validationConfig } from "./constants.js"
+import { validationConfig } from "./constants.js";
+import Section from "./Section.js";
+import Popup from "./Popup.js";
+import PopupWithImage from "./PopupWithImage.js";
 
 const popupEditOpen = document.querySelector(".profile__edit-button");
 const popupEditContainer = document.querySelector(".popup_type_edit-profile");
@@ -86,12 +89,17 @@ const createCard = (cardData) => {
   return card.createCardElement();
 };
 
-function renderСards() {
-  initialCards.forEach((cardData) => {
-    cardsContainer.append(createCard(cardData));
-  });
-  };
-  renderСards();
+
+// function renderСards() {
+//   initialCards.forEach((cardData) => {
+//     cardsContainer.append(createCard(cardData));
+//   });
+//   };
+//   renderСards(); NEW
+ 
+  const cardSection = new Section({renderer: (card) => {
+    cardSection.addItem(createCard(card))}}, '.elements');
+    cardSection.renderСards(initialCards);
 
 // function handleCardDelete(evt) {
 //   evt.target.closest('.element').remove();
@@ -139,3 +147,4 @@ validationFormEdit.enableValidationForm();
 
 const validationFormAdd = new FormValidator(validationConfig, cardForm);
 validationFormAdd.enableValidationForm();
+
