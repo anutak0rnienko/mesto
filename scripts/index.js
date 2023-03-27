@@ -35,37 +35,29 @@ const formValidation = document.forms['form'];
 //   jobInput.value = popupEditText.textContent;
 // };
 
-function closePopup(popup) {
-  popup.classList.remove("popup_opened");
-  document.removeEventListener("keydown", handleEscape);
-};
+// function closePopup(popup) {
+//   popup.classList.remove("popup_opened");
+//   document.removeEventListener("keydown", handleEscape);
+// };
 
-function openPopupAdd() {
-  openPopup(popupAddition);
-};
-
-//кнопка сохранить
-//Обработчик «отправки»
-// function handleFormSubmitEdit (evt) {
-//   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-//   popupEditName.textContent = nameInput.value;
-//   popupEditText.textContent = jobInput.value;
-//   closePopup(popupEditContainer);
+// function openPopupAdd() {
+//   openPopup(popupAddition);
 // };
 
 
+
 //обработчик на второй попап
-function handleFormSubmitCard (evt) {
-  evt.preventDefault();
-    cardsContainer.prepend(createCard(
-      {
-        name: elementTitle.value,
-        link: elementImage.value
-      }
-    )); 
-    closePopup(popupAddition);
-    evt.target.reset();
-};
+// function handleFormSubmitCard (evt) {
+//   evt.preventDefault();
+//     cardsContainer.prepend(createCard(
+//       {
+//         name: elementTitle.value,
+//         link: elementImage.value
+//       }
+//     )); 
+//     closePopup(popupAddition);
+//     evt.target.reset();
+// };
 //cоздание карточки
 const createCard = (cardData) => {
   const card = new Card(cardData, '#card-template', (name, link) => {
@@ -94,30 +86,30 @@ const createCard = (cardData) => {
 //   popupImgCaption.textContent = image.name;
 // };
 
-function openPopup(popup) {
-  popup.classList.add("popup_opened");
-  document.addEventListener("keydown", handleEscape);
-};
+// function openPopup(popup) {
+//   popup.classList.add("popup_opened");
+//   document.addEventListener("keydown", handleEscape);
+// };
 
-function handleEscape(evt) {
-  if (evt.key === "Escape") {
-    const popupFormOpen = document.querySelector(".popup_opened");
-    closePopup(popupFormOpen);
-  };
-};
+// function handleEscape(evt) {
+//   if (evt.key === "Escape") {
+//     const popupFormOpen = document.querySelector(".popup_opened");
+//     closePopup(popupFormOpen);
+//   };
+// };
 
 //объединение обработчиков оверлея и крестиков
-const popups = document.querySelectorAll('.popup');
-popups.forEach((popup) => {
-    popup.addEventListener('mousedown', (evt) => {
-        if (evt.target.classList.contains('popup_opened')) {
-          closePopup(popup);
-        };
-        if (evt.target.classList.contains('popup__close')) {
-          closePopup(popup);
-        };
-    });
-});
+// const popups = document.querySelectorAll('.popup');
+// popups.forEach((popup) => {
+//     popup.addEventListener('mousedown', (evt) => {
+//         if (evt.target.classList.contains('popup_opened')) {
+//           closePopup(popup);
+//         };
+//         if (evt.target.classList.contains('popup__close')) {
+//           closePopup(popup);
+//         };
+//     });
+// });
 
 //Валидация
 const validationFormEdit = new FormValidator(validationConfig, formValidation);
@@ -146,13 +138,24 @@ popupEditOpen.addEventListener("click", () => {
   nameInput.value = name;
   jobInput.value = link;
 });
-// popupEditContainer.addEventListener('submit', handleFormSubmitEdit); 
 
 //редактирование карточки - добавление 
 
+const popupCard = new PopupWithForm('.popup_type_add-place', {
+  handleFormSubmit: ({ image, title }) => {
+    cardSection.addItem(createCard({
+      name: title,
+      link: image,
+      alt: title,
+    }))
+  }
+});
+
+popupCard.setEventListeners();
 
 
-
-popupBtnAdd.addEventListener('click', openPopupAdd);
-popupAddition.addEventListener('submit', handleFormSubmitCard);
+popupBtnAdd.addEventListener('click', () => {
+  popupCard.open()
+});
+// popupAddition.addEventListener('submit', handleFormSubmitCard);
 
