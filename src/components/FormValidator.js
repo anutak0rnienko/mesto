@@ -56,4 +56,13 @@ export default class FormValidator {
             })
         })
     }
+
+    resetValidaionForm() {
+        this._toggleButtonForm();
+        this._inputs.forEach((elementInput) => {
+            const formError = this._elementForm.querySelector(`.popup__form-error-${elementInput.name}`);
+            elementInput.classList.remove(this._inputErrorClass);
+            formError.textContent = '';
+          })
+    }
 }

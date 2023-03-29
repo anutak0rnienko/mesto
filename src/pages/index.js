@@ -1,13 +1,13 @@
-import Card from "./components/Сard.js";
-import FormValidator from "./components/FormValidator.js";
-import { initialCards } from "./utils/constants.js";
-import { validationConfig } from "./utils/constants.js";
-import Section from "./components/Section.js";
-import PopupWithImage from "./components/PopupWithImage.js";
-import PopupWithForm from "./components/PopupWithForm.js";
-import UserInfo from "./components/UserInfo.js";
-import {nameInput, jobInput} from './utils/constants.js';
-import './pages/index.css';
+import Card from "../components/Сard.js";
+import FormValidator from "../components/FormValidator.js";
+import { initialCards } from "../utils/constants.js";
+import { validationConfig } from "../utils/constants.js";
+import Section from "../components/Section.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import UserInfo from "../components/UserInfo.js";
+import {nameInput, jobInput} from '../utils/constants.js';
+import './index.css';
 
 const popupEditOpen = document.querySelector(".profile__edit-button");
 const popupBtnAdd = document.querySelector('.profile__add-button');
@@ -50,6 +50,7 @@ popupForm.setEventListeners();
 
 popupEditOpen.addEventListener("click", () => { 
   popupForm.open();
+  validationFormEdit.resetValidaionForm();
   const { name, job } = userInfo.getUserInfo();
   nameInput.value = name;
   jobInput.value = job;
@@ -65,4 +66,5 @@ popupCard.setEventListeners();
 
 popupBtnAdd.addEventListener('click', () => {
   popupCard.open()
+  validationFormAdd.resetValidaionForm();
 });
