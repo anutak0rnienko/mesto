@@ -1,30 +1,16 @@
-import Card from "./Сard.js";
-import FormValidator from "./FormValidator.js";
-import { initialCards } from "./constants.js";
-import { validationConfig } from "./constants.js";
-import Section from "./Section.js";
-import PopupWithImage from "./PopupWithImage.js";
-import PopupWithForm from "./PopupWithForm.js";
-import UserInfo from "./UserInfo.js";
-import {nameInput, jobInput} from './constants.js';
+import Card from "./components/Сard.js";
+import FormValidator from "./components/FormValidator.js";
+import { initialCards } from "./utils/constants.js";
+import { validationConfig } from "./utils/constants.js";
+import Section from "./components/Section.js";
+import PopupWithImage from "./components/PopupWithImage.js";
+import PopupWithForm from "./components/PopupWithForm.js";
+import UserInfo from "./components/UserInfo.js";
+import {nameInput, jobInput} from './utils/constants.js';
+import './pages/index.css';
 
 const popupEditOpen = document.querySelector(".profile__edit-button");
-const popupEditContainer = document.querySelector(".popup_type_edit-profile");
-const popupEditClose = document.querySelector(".popup__close_edit");
-const popupEditName = document.querySelector('.profile__name');
-const popupEditText = document.querySelector('.profile__text'); 
 const popupBtnAdd = document.querySelector('.profile__add-button');
-const popupAddition = document.querySelector('.popup_type_add-place');
-const popupBtnMesto = document.querySelector('.popup__close_mesto');
-const popupTypeImg = document.querySelector('.popup_type_image');
-const popupBtnImage = document.querySelector('.popup__close_button_image');
-const templateCard = document.querySelector('#card-template').content.querySelector('.element');
-const templateSelector = document.querySelector('#card-template');
-const cardsContainer = document.querySelector('.elements');
-const elementTitle = document.querySelector('.popup__input_mesto_title');
-const elementImage = document.querySelector('.popup__input_mesto_image');
-const popupImg = document.querySelector('.popup__image'); 
-const popupImgCaption = document.querySelector('.popup__img-caption');
 const cardForm = document.forms['card-form'];
 const formValidation = document.forms['form'];
 
@@ -33,7 +19,7 @@ const createCard = (cardData) => {
   const card = new Card(cardData, '#card-template', () => {
     popupImage.open(cardData);
   });
-    return card.createCardElement(); //!!!!
+    return card.createCardElement();
 };
 
 const cardSection = new Section({renderer: (card) => {
@@ -80,5 +66,3 @@ popupCard.setEventListeners();
 popupBtnAdd.addEventListener('click', () => {
   popupCard.open()
 });
-// popupAddition.addEventListener('submit', handleFormSubmitCard);
-
