@@ -35,3 +35,11 @@ export const validationConfig = ({
 
 export const nameInput = document.querySelector(".popup__input_user_name");
 export const jobInput = document.querySelector(".popup__input_user_job");
+
+export const apiConfig = {
+  url:"https://mesto.nomoreparties.co/v1/cohort-63", 
+  headers: {
+    "Content-Type": "application/json",
+    authorization: '703c55db-a791-46d2-9a88-67fb391efea0'
+  }
+}
