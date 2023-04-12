@@ -8,12 +8,15 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import {nameInput, jobInput} from '../utils/constants.js';
 import Api from '../components/Api.js';
-import './index.css';
+import PopupWithDelete from '../components/PopupWithDelete.js';
+import './index.css'; 
 
 const popupEditOpen = document.querySelector(".profile__edit-button");
 const popupBtnAdd = document.querySelector('.profile__add-button');
+const popupAvatarButton = document.querySelector('.profile__avatar-button');
 const cardForm = document.forms['card-form'];
 const formValidation = document.forms['form'];
+
 
 //cоздание карточки
 const createCard = (cardData) => {
@@ -38,7 +41,7 @@ validationFormAdd.enableValidationForm();
 const popupImage = new PopupWithImage('.popup_type_image');
 popupImage.setEventListeners();
 
-const userInfo = new UserInfo({elementUserName: '.profile__name', elementUserJob: '.profile__text'});
+const userInfo = new UserInfo({elementUserName: '.profile__name', elementUserJob: '.profile__text', elementUserAvatar: '.profile__avatar-image'});
 
 //Слушатели событий//
 //реждактирование профиля 
@@ -70,6 +73,18 @@ popupBtnAdd.addEventListener('click', () => {
   validationFormAdd.resetValidaionForm();
 });
 
+const popupFormDelete = new PopupWithDelete('.popup_type_delete', {
+  handleFormSubmit: (cardElement, cardId) =>{ apiConnect.handleCardDelete(cardId)
+  .then(() => {
+    cardElement.handleCardDelete();
+    popupFormDelete.close();
+  })
+  .catch((err) => { console.log(`При удалении карточки возникла ошибка, ${err}`) })
+}
+});
+
+// popupFormDelete.setEventListeners();
+
 const api = new Api(apiConfig);
 
 Promise.all([api.getUserInfoApi(), api.getInitialCardsApi()])
@@ -80,4 +95,30 @@ Promise.all([api.getUserInfoApi(), api.getInitialCardsApi()])
   userInfo.setUserId(_id);
   userInfo.setUserInfo({ name, about });
   userInfo.setUserAvatar({ avatar });
-}).catch((err) => alert(err))
+}).catch((err) => alert(err));
+
+popupAvatarButton.addEventListener('click', () => {
+  popupFormWithAvatar.open();
+})
+
+const popupFormWithAvatar = new PopupWithForm('.popup_type_avatar', {
+  // popupFormWithAvatar.renderLoading(true)
+  handleFormSubmit: (data) => { 
+    api.editProfileAvatar(data)
+    .then((res) => {
+      userInfo.setUserAvatar(res)
+      popupFormWithAvatar.close();
+    })
+    .catch((err) => {
+      console.log(err);
+  })
+    // .finally(() => popupFormWithAvatar.renderLoading(false));
+}})
+
+  const popupWithDelete = document.querySelector('.element__delete');
+  popupWithDelete.addEventListener('click', () => {
+    popupFormDelete.open();
+  })
+
+popupFormWithAvatar.setEventListeners();
+
