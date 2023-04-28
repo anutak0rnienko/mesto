@@ -35,11 +35,17 @@ export const validationConfig = ({
 
 export const nameInput = document.querySelector(".popup__input_user_name");
 export const jobInput = document.querySelector(".popup__input_user_job");
+export const popupEditOpen = document.querySelector(".profile__edit-button");
+export const popupBtnAdd = document.querySelector('.profile__add-button');
+export const popupAvatarButton = document.querySelector('.profile__avatar-button');
+export const cardForm = document.forms['card-form'];
+export const formValidation = document.forms['form'];
+export const validationAvatar = document.forms['form-avatar'];
 
 export const apiConfig = {
-  url:"https://mesto.nomoreparties.co/v1/cohort-63", 
+  url:'https://mesto.nomoreparties.co/v1/cohort-65', 
   headers: {
-    "Content-Type": "application/json",
-    authorization: '703c55db-a791-46d2-9a88-67fb391efea0'
+    'Content-Type': 'application/json',
+    authorization: 'a78ff19e-0d6f-4d15-9950-0c2176ee362c'
   }
 }

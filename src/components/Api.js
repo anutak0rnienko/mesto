@@ -1,16 +1,16 @@
 export default class Api {
-    constructor(config) {
-        this._url = config.url;
-        this._headers = config.headers;
+    constructor(apiConfig) {
+        this._url = apiConfig.url;
+        this._headers = apiConfig.headers;
     }
 
-    getInitialCardsApi() {
-        return fetch(`${this._url}/cards`, {
-            method: 'GET',
-            headers: this._headers
-        })
-        .then(res => this._checkError(res))
-    }
+getInitialCardsApi() {
+  return fetch(`${this._url}/cards`, {
+    method: 'GET',
+    headers: this._headers
+    })
+  .then(res => this._checkError(res))
+}
 
     getUserInfoApi() {
         return fetch(`${this._url}/users/me`, {
@@ -29,11 +29,14 @@ export default class Api {
         .then(res => this._checkError(res))
       }
 
-      editProfile(data) {
+    editProfile(data) {
         return fetch(`${this._url}/users/me`, {
           method: 'PATCH',
           headers: this._headers,
-          body: JSON.stringify(data)
+          body: JSON.stringify({
+            name: data.name,
+            about: data.about,
+          })
         })
         .then(res => this._checkError(res))
       }
@@ -66,7 +69,7 @@ export default class Api {
         return fetch(`${this._url}/users/me/avatar`, {
           method: 'PATCH',
           headers: this._headers,
-          body: JSON.stringify(data)
+          body: JSON.stringify(data),
         }).then(res => this._checkError(res))
       }
 
