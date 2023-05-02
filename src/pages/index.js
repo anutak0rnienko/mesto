@@ -13,28 +13,33 @@ import './index.css';
 
 const api = new Api(apiConfig);
 
+const userInfo = new UserInfo({elementUserName: '.profile__name', elementUserJob: '.profile__text', elementUserAvatar: '.profile__avatar-image'});
+
+let userId 
+
 Promise.all([api.getUserInfoApi(), api.getInitialCardsApi()])
-.then(([user, cards]) => {
-  const { name, about, avatar, _id } = user;
-  cardSection.setItem(cards);
-  cardSection.renderСards();
-  userInfo.setUserId(_id);
-  userInfo.setUserInfo({ name, about });
-  userInfo.setUserAvatar({ avatar });
-}).catch((err) => console.log(err));
+.then(([user, card]) => {
+  userId = user._id;
+  userInfo.setUserInfo(user);
+  userInfo.setUserAvatar(user);
+  cardSection.renderСards(card, userId)
+})
+.catch((err) => console.log(err))
+
 
 // cоздание карточки
-const createCard = (cardData) => {
-  const card = new Card(cardData, '#card-template', () => {
-    popupImage.open(cardData);
+const createCard = (data) => {
+  const card = new Card(data, '#card-template', () => {
+    popupImage.open(data);
   },
+  userInfo.getUserId(),
   (cardId) => {
     api.putCardLike(cardId)
       .then((data) => {
         card.renderCardLike(data);
       })
       .catch((err) => {
-        console.error('Error');
+        console.log(err);
       })
   },
   (cardId) => {
@@ -43,39 +48,25 @@ const createCard = (cardData) => {
         card.renderCardLike(data);
       })
       .catch((err) => {
-        console.error('Error');
+        console.log(err);
       })
     },
     () => {
-      popupFormDelete.open(cardData)
-    }
-  )
+      popupFormDelete.open();
+      popupFormDelete.confirmDelete(() => {
+        const id = card.getCardId();
+        api.deleteCard(id)
+          .then(() => {
+            popupFormDelete.close();
+            card.deleteCards()
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+    });
     return card.createCardElement();
 };
-// НОВОЕ
-// const createCard = (cardData, user) => {
-//   const card = new Card({cardData: cardData, userId: user, template : '#card-template', 
-//   handleImgOpen: () => {
-//     popupImage.open(cardData);
-//   },
-//   handleCardLike: (id) => {
-//     api.putCardLike(id)
-//     .then((res) => {
-//       card.renderCardLike(res);
-//     })
-//     .catch((err) => alert(err))
-//   },
-//   handleCardDeleteLike: (id) => {
-//     api.deleteCardLike(id)
-//     .then((res) => {
-//       card.renderCardLike(res)
-//     })
-//     .catch((err) => alert(err))
-//   }
-// }
-//   )
-//     return card.createCardElement();
-// };
 
 const cardSection = new Section({renderer: (card) => {
   cardSection.addItem(createCard(card))}}, '.elements');
@@ -95,7 +86,7 @@ validationFormAvatar.enableValidationForm();
 const popupImage = new PopupWithImage('.popup_type_image');
 popupImage.setEventListeners();
 
-const userInfo = new UserInfo({elementUserName: '.profile__name', elementUserJob: '.profile__text', elementUserAvatar: '.profile__avatar-image'});
+// const userInfo = new UserInfo({elementUserName: '.profile__name', elementUserJob: '.profile__text', elementUserAvatar: '.profile__avatar-image'});
 
 //Слушатели событий//
 //реждактирование профиля 
@@ -161,10 +152,10 @@ const popupFormDelete = new PopupWithDelete('.popup_type_delete', {
 });
 
 //открытие попап удаление карточки
-const popupWithDelete = document.querySelector('.element__delete');
-popupWithDelete.addEventListener('click', () => {
-  popupFormDelete.open();
-})
+// const popupWithDelete = document.querySelector('.element__delete');
+// popupWithDelete.addEventListener('click', () => {
+//   popupFormDelete.open();
+// })
 
 // popupFormDelete.setEventListeners();
 

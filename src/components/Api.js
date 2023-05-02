@@ -2,12 +2,15 @@ export default class Api {
     constructor(apiConfig) {
         this._url = apiConfig.url;
         this._headers = apiConfig.headers;
+        this._authorization = apiConfig.headers['authorization'];
     }
 
 getInitialCardsApi() {
   return fetch(`${this._url}/cards`, {
     method: 'GET',
-    headers: this._headers
+    headers: {
+      authorization: this._authorization
+    },
     })
   .then(res => this._checkError(res))
 }
@@ -73,12 +76,11 @@ getInitialCardsApi() {
         }).then(res => this._checkError(res))
       }
 
-      /**Проверить на ошибки */
     _checkError(res) {
         if (res.ok) {
             return res.json();
         }
-        return Promise.reject(`Упс.... Что-то пошло не так! Ошибка: ${res.status}`);
+        return Promise.reject(`Что-то пошло не так:( Ошибка: ${res.status}`);
   }
 }
 

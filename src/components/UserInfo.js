@@ -17,12 +17,12 @@ export default class UserInfo {
         this._elementUserJob.textContent = about;
     };
 
-    getUserId() {
-        return this._id;
+    setUserId(id) {
+        this._id = id;
     }
 
-    setUserId(id) {
-        return this._id = id;
+    getUserId() {
+        return this._id;
     }
 
     setUserAvatar({ avatar }) {
