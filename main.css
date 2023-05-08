@@ -14,7 +14,7 @@
 .element{background-color:#fff;border-radius:10px;max-width:282px;position:relative}
 .element__image{border-radius:10px 10px 0 0;display:block;height:282px;-o-object-fit:cover;object-fit:cover;-o-object-position:center;object-position:center;width:100%}
 .element__info{align-items:center;background-color:#fff;border-radius:0 0 10px 10px;display:flex;justify-content:space-between;max-width:246px;padding:25px 15px 24px 21px}
-.element__like{background-color:transparent;background-image:url(87ed371465c7a6a1cd01.svg);background-position:50%;background-repeat:no-repeat;border:0;cursor:pointer;height:19px;margin-right:5px;min-width:22px;padding:0}.element__like:hover{opacity:.5}
+.element__like{background-color:transparent;background-image:url(87ed371465c7a6a1cd01.svg);background-position:50%;background-repeat:no-repeat;border:0;cursor:pointer;height:19px;min-width:22px;padding:0}.element__like:hover{opacity:.5}
 .element__text{font-size:24px;font-style:normal;font-weight:900;line-height:29px;margin:0 20px 0 0;overflow:hidden;padding:0;text-overflow:ellipsis;white-space:nowrap}
 .footer{margin:0 auto 60px;max-width:880px;padding:0}@media screen and (max-width:910px){.footer{margin:0 19px 36px;max-width:910px}}@media screen and (max-width:610px){.footer{max-width:320px}}
 .footer__text{color:#545454;font-size:18px;font-style:normal;font-weight:400;line-height:22px;margin:0;max-width:318px;padding:0}@media screen and (max-width:610px){.footer__text{font-size:14px;line-height:17px;max-width:282px}}
@@ -37,4 +37,9 @@
 .popup__figure{margin:0;padding:0}
 .popup__input_form_invalid{border-bottom-color:red}
 .popup__form-error{box-sizing:border-box;color:red;display:block;font-size:12px;font-style:normal;font-weight:400;line-height:12px;margin-top:5px;min-height:25px}
+.element__numberlike{color:#000;font-size:13px;font-style:normal;font-weight:400;line-height:16px;margin:0;text-align:center}
+.element__like-container{display:flex;flex-direction:column;margin:0 5px 0 0}
+.profile__avatar-button{background:rgba(0,0,0,.8);background-image:url(a086f758840ae814ecde.svg);background-position:50%;background-repeat:no-repeat;border-radius:50%;border-style:none;cursor:pointer;height:120px;left:0;margin:0;opacity:0;padding:0;position:absolute;top:0;width:120px;z-index:1}.profile__avatar-button:hover{opacity:.8;transition:.3s linear}
+.profile__avatar{background:rgba(0,0,0,.8);border-radius:50%;height:120px;margin:0;-o-object-fit:cover;object-fit:cover;padding:0 30px 0 0;position:relative;width:120px}
+.popup__title-delete{margin-bottom:23px}
 
