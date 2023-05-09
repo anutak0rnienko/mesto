@@ -30,7 +30,8 @@ export const validationConfig = ({
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__button',
     inactiveButtonClass: 'popup__button_disabled',
-    inputErrorClass: 'popup__input_form_invalid'
+    inputErrorClass: 'popup__input_form_invalid',
+    
 });
 
 export const nameInput = document.querySelector(".popup__input_user_name");

@@ -1,25 +1,20 @@
 import Popup from './Popup.js';
-
 export default class PopupWithDelete extends Popup {
-    constructor(selector, { handleFormSubmit }) {
+    constructor(selector, {handleFormSubmit}) {
         super(selector);
-        this._elementDelete = document.querySelector('popup__button_mesto');
         this._handleFormSubmit = handleFormSubmit;
+        this._submitButton = this._popup.querySelector('.popup__button');
     }
 
-    // open(cardObject, cardId) {
-    //     this._cardObject = cardObject;
-    //     this._cardId = cardId;
-    //     super.open();
-    //   } 
+    open(cardElement, idCard) {
+        super.open();
+        this.id = idCard;
+        this.card = cardElement;
+      }
 
-    confirmDelete(callback) {
-        this._handleConfirmationCallback = callback;
-    }
-
-      setEventListeners() {
+    setEventListeners() {
         super.setEventListeners();
-        this._elementDelete.addEventListener('submit', () => { 
-            this._handleConfirmationCallback })
+        this._submitButton.addEventListener('submit', () => { 
+            this._handleFormSubmit(this.id, this.card) })
     }       
 }

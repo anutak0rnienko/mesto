@@ -2,18 +2,15 @@ export default class Api {
     constructor(apiConfig) {
         this._url = apiConfig.url;
         this._headers = apiConfig.headers;
-        this._authorization = apiConfig.headers['authorization'];
     }
 
-getInitialCardsApi() {
-  return fetch(`${this._url}/cards`, {
-    method: 'GET',
-    headers: {
-      authorization: this._authorization
-    },
-    })
-  .then(res => this._checkError(res))
-}
+    getInitialCardsApi() {
+      return fetch(`${this._url}/cards`, {
+         method: 'GET',
+         headers: this._headers
+      })
+      .then(res => this._checkError(res))
+    } 
 
     getUserInfoApi() {
         return fetch(`${this._url}/users/me`, {
@@ -30,7 +27,7 @@ getInitialCardsApi() {
           body: JSON.stringify(data),
         })
         .then(res => this._checkError(res))
-      }
+    }
 
     editProfile(data) {
         return fetch(`${this._url}/users/me`, {
@@ -42,7 +39,7 @@ getInitialCardsApi() {
           })
         })
         .then(res => this._checkError(res))
-      }
+    }
 
       deleteCard(cardId) {
         return fetch(`${this._url}/cards/${cardId}`, {
@@ -80,7 +77,7 @@ getInitialCardsApi() {
         if (res.ok) {
             return res.json();
         }
-        return Promise.reject(`Что-то пошло не так:( Ошибка: ${res.status}`);
+        return Promise.reject(`Ошибка: ${res.status}`);
   }
 }
 

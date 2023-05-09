@@ -15,62 +15,48 @@ const api = new Api(apiConfig);
 
 const userInfo = new UserInfo({elementUserName: '.profile__name', elementUserJob: '.profile__text', elementUserAvatar: '.profile__avatar-image'});
 
-let userId 
+let userId
 
 Promise.all([api.getUserInfoApi(), api.getInitialCardsApi()])
 .then(([user, card]) => {
   userId = user._id;
   userInfo.setUserInfo(user);
   userInfo.setUserAvatar(user);
-  cardSection.renderСards(card, userId)
+  cardSection.renderСards(card)
+  console.log(userId)
 })
-.catch((err) => console.log(err))
+.catch((err) => console.log(err));
 
 
 // cоздание карточки
 const createCard = (data) => {
-  const card = new Card(data, '#card-template', () => {
+  const card = new Card({data: data, template: '#card-template', 
+  handleImgOpen: () => {
     popupImage.open(data);
-  },
-  userInfo.getUserId(),
-  (cardId) => {
+  }, 
+ handleCardLike: (cardId) => {
     api.putCardLike(cardId)
-      .then((data) => {
-        card.renderCardLike(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+    .then((res) => {
+      card.updatesLikes(res);
+    })
+    .catch((err) => console.log(err))
   },
-  (cardId) => {
+  handleCardDeleteLike: (cardId) => {
     api.deleteCardLike(cardId)
-      .then((data) => {
-        card.renderCardLike(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-    },
-    () => {
-      popupFormDelete.open();
-      popupFormDelete.confirmDelete(() => {
-        const id = card.getCardId();
-        api.deleteCard(id)
-          .then(() => {
-            popupFormDelete.close();
-            card.deleteCards()
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      })
-    });
+    .then((res) => {
+      card.updatesLikes(res)
+    })
+    .catch((err) => console.log(err))
+  },handleDeleteCard: (cardID, cardElement) => {
+    popupFormDelete.open(cardID, cardElement);
+  }}, userId)
     return card.createCardElement();
 };
 
 const cardSection = new Section({renderer: (card) => {
   cardSection.addItem(createCard(card))}}, '.elements');
-  cardSection.renderСards(initialCards);
+  // cardSection.renderСards(initialCards);
+
 
 //Валидация
 const validationFormEdit = new FormValidator(validationConfig, formValidation);
@@ -86,7 +72,6 @@ validationFormAvatar.enableValidationForm();
 const popupImage = new PopupWithImage('.popup_type_image');
 popupImage.setEventListeners();
 
-// const userInfo = new UserInfo({elementUserName: '.profile__name', elementUserJob: '.profile__text', elementUserAvatar: '.profile__avatar-image'});
 
 //Слушатели событий//
 //реждактирование профиля 
@@ -96,11 +81,11 @@ const popupForm = new PopupWithForm('.popup_type_edit-profile', {handleFormSubmi
   api.editProfile(data)
     .then((res) => {
       userInfo.setUserInfo(res);
-      popupForm.close();
     })
     .catch((err) => console.log(err))
     .finally(() => {
       popupForm.renderLoading(false);
+      popupForm.close();
     })
 }});
 
@@ -117,8 +102,8 @@ popupEditOpen.addEventListener("click", () => {
 
 //редактирование карточки - добавление 
 const popupCard = new PopupWithForm('.popup_type_add-place', {handleFormSubmit:(item) => {
+  popupCard.renderLoading(true)
   const value = { name: item.title, link: item.image };
-  popupCard.renderLoading(true);
   api.addCardElements(value)
     .then((data) => {
       cardSection.addItem(createCard(data))
@@ -127,7 +112,7 @@ const popupCard = new PopupWithForm('.popup_type_add-place', {handleFormSubmit:(
     .catch((err) => {
       console.log(err);
     })
-    .finally(() => popupCard.renderLoading(false));
+    .finally(() => { popupCard.renderLoading(false)});
 }});
 
 popupCard.setEventListeners();
@@ -139,25 +124,22 @@ popupBtnAdd.addEventListener('click', () => {
 });
 
 //попап удаление карточки
+// const popupFormDelete = new PopupWithDelete('.popup_type_delete');
 const popupFormDelete = new PopupWithDelete('.popup_type_delete', {
-  handleFormSubmit: (cardObject, cardId) => { 
+  handleFormSubmit: (id, card) => {
     popupFormDelete.renderLoading(true);
-    api.deleteCard(cardId)
+    api.deleteCard(id)
     .then(() => {
-      cardObject.deleteCards();
+      card.deleteElement();
       popupFormDelete.close();
-  })
-  .catch((err) => { console.log(`При удалении карточки возникла ошибка, ${err}`) })
-}
-});
-
-//открытие попап удаление карточки
-// const popupWithDelete = document.querySelector('.element__delete');
-// popupWithDelete.addEventListener('click', () => {
-//   popupFormDelete.open();
-// })
-
-// popupFormDelete.setEventListeners();
+    })
+    .catch((err) => alert(err))
+    .finally(() => {
+      popupFormDelete.renderLoading(false);
+    })
+  }
+})
+popupFormDelete.setEventListeners();
 
 //редактирование аватара
 const popupFormWithAvatar = new PopupWithForm('.popup_type_avatar', {
@@ -171,7 +153,7 @@ const popupFormWithAvatar = new PopupWithForm('.popup_type_avatar', {
     .catch((err) => {
       console.log(err);
   })
-    .finally(() => popupFormWithAvatar.renderLoading(false));
+    .finally(() => {popupFormWithAvatar.renderLoading(false)});
 }}) 
 
 popupFormWithAvatar.setEventListeners();
@@ -180,5 +162,6 @@ popupFormWithAvatar.setEventListeners();
 popupAvatarButton.addEventListener('click', () => {
   popupFormWithAvatar.open();
 })
+
 
 
