@@ -40,8 +40,9 @@ export const popupEditOpen = document.querySelector(".profile__edit-button");
 export const popupBtnAdd = document.querySelector('.profile__add-button');
 export const popupAvatarButton = document.querySelector('.profile__avatar-button');
 export const cardForm = document.forms['card-form'];
-export const formValidation = document.forms['form'];
-export const validationAvatar = document.forms['form-avatar'];
+export const profileForm = document.forms['form'];
+export const avatarForm = document.forms['form-avatar'];
+export const deleteForm = document.querySelector('.popup_type_delete');
 
 export const apiConfig = {
   url:'https://mesto.nomoreparties.co/v1/cohort-65', 

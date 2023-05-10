@@ -1,9 +1,9 @@
-import Popup from './Popup.js';
+import Popup from "./Popup.js";
 export default class PopupWithDelete extends Popup {
-    constructor(selector, {handleFormSubmit}) {
+    constructor(selector, { handleFormSubmit }) {
         super(selector);
         this._handleFormSubmit = handleFormSubmit;
-        this._submitButton = this._popup.querySelector('.popup__button');
+        this._submitButton = this._popup.querySelector(".popup__button");
         this._submitButtonSave = this._submitButton.textContent;
     }
 
@@ -11,19 +11,20 @@ export default class PopupWithDelete extends Popup {
         super.open();
         this.id = idCard;
         this.card = cardElement;
-      }
+    }
 
-      renderLoading(isLoading) {
+    renderLoading(isLoading) {
         if (isLoading) {
-          this._submitButton.textContent = 'Сохранение...'
+            this._submitButton.textContent = "Удаление...";
         } else {
-          this._submitButton.textContent = this._submitButtonSave;
+            this._submitButton.textContent = this._submitButtonSave;
         }
-      }
+    }
 
     setEventListeners() {
         super.setEventListeners();
-        this._submitButton.addEventListener('click', () => { 
-            this._handleFormSubmit(this.id, this.card) })
-    }       
-}
+        this._submitButton.addEventListener("click", () => {
+            this._handleFormSubmit(this.id, this.card);
+        });
+    }
+};

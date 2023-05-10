@@ -11,50 +11,51 @@ export default class FormValidator {
     }
 
     _enableSbmButton() {
-        this._buttonElement.removeAttribute('disabled');
+        this._buttonElement.removeAttribute("disabled");
         this._buttonElement.classList.remove(this._inactiveButtonClass);
-    };
-            
+    }
+
     _disableSbmButton() {
-        this._buttonElement.setAttribute('disabled', true);
+        this._buttonElement.setAttribute("disabled", true);
         this._buttonElement.classList.add(this._inactiveButtonClass);
-    };
+    }
 
     _toggleButtonForm() {
         if (this._hasInvalidInput()) {
             this._disableSbmButton();
-        }
-        else {
+        } else {
             this._enableSbmButton();
         }
-    };
+    }
 
     _hasInvalidInput() {
-        return this._inputs.some((elementInput) => !elementInput.validity.valid);
-    };
+        return this._inputs.some(
+            (elementInput) => !elementInput.validity.valid
+        );
+    }
 
-    _checkInputValidity = (elementInput) => { 
+    _checkInputValidity = (elementInput) => {
         const formError = this._elementForm.querySelector(`.popup__form-error-${elementInput.name}`);
-            if (elementInput.validity.valid) {
-                elementInput.classList.remove(this._inputErrorClass);
-                formError.textContent = '';
-            } else {
-                elementInput.classList.add(this._inputErrorClass);
-                formError.textContent = elementInput.validationMessage;
-            }
+        if (elementInput.validity.valid) {
+            elementInput.classList.remove(this._inputErrorClass);
+            formError.textContent = "";
+        } else {
+            elementInput.classList.add(this._inputErrorClass);
+            formError.textContent = elementInput.validationMessage;
+        }
     };
 
     enableValidationForm() {
         this._toggleButtonForm();
-        this._elementForm.addEventListener('reset', () => {
+        this._elementForm.addEventListener("reset", () => {
             this._disableSbmButton();
         });
         this._inputs.forEach((elementInput) => {
-            elementInput.addEventListener('input', () => {
+            elementInput.addEventListener("input", () => {
                 this._checkInputValidity(elementInput);
                 this._toggleButtonForm();
-            })
-        })
+            });
+        });
     }
 
     resetValidaionForm() {
@@ -62,7 +63,7 @@ export default class FormValidator {
         this._inputs.forEach((elementInput) => {
             const formError = this._elementForm.querySelector(`.popup__form-error-${elementInput.name}`);
             elementInput.classList.remove(this._inputErrorClass);
-            formError.textContent = '';
-          })
+            formError.textContent = "";
+        });
     }
-}
+};

@@ -6,7 +6,7 @@ import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
-import {nameInput, jobInput, popupEditOpen, popupBtnAdd, popupAvatarButton, cardForm, formValidation, validationAvatar} from '../utils/constants.js';
+import {nameInput, jobInput, popupEditOpen, popupBtnAdd, popupAvatarButton, cardForm, profileForm, avatarForm, deleteForm} from '../utils/constants.js';
 import Api from '../components/Api.js';
 import PopupWithDelete from '../components/PopupWithDelete.js';
 import './index.css'; 
@@ -21,7 +21,7 @@ Promise.all([api.getUserInfoApi(), api.getInitialCardsApi()])
 .then(([user, card]) => {
   userId = user._id;
   userInfo.setUserInfo(user);
-  userInfo.setUserAvatar(user);
+  userInfo.setUserInfo(user);
   cardSection.renderСards(card)
 })
 .catch((err) => console.log(err));
@@ -55,38 +55,41 @@ const cardSection = new Section({renderer: (card) => {
   cardSection.addItem(createCard(card))}}, '.elements');
 
 //Валидация
-const validationFormEdit = new FormValidator(validationConfig, formValidation);
+const validationFormEdit = new FormValidator(validationConfig, profileForm);
 validationFormEdit.enableValidationForm();
 
 const validationFormAdd = new FormValidator(validationConfig, cardForm);
 validationFormAdd.enableValidationForm();
 
-const validationFormAvatar = new FormValidator(validationConfig, validationAvatar);
+const validationFormAvatar = new FormValidator(validationConfig, avatarForm);
 validationFormAvatar.enableValidationForm();
+
+const validationFormDelete = new FormValidator(validationConfig, deleteForm);
+validationFormDelete.enableValidationForm();
 
 //создание изображения
 const popupImage = new PopupWithImage('.popup_type_image');
 popupImage.setEventListeners();
 
 //реждактирование профиля 
-const popupForm = new PopupWithForm('.popup_type_edit-profile', {handleFormSubmit: (data) => {
-  popupForm.renderLoading(true)
+const profilePopup = new PopupWithForm('.popup_type_edit-profile', {handleFormSubmit: (data) => {
+  profilePopup.renderLoading(true)
   api.editProfile(data)
     .then((res) => {
       userInfo.setUserInfo(res);
+      profilePopup.close();
     })
     .catch((err) => console.log(err))
     .finally(() => {
-      popupForm.renderLoading(false);
-      popupForm.close();
+      profilePopup.renderLoading(false);
     })
 }});
 
-popupForm.setEventListeners();
+profilePopup.setEventListeners();
 
 //открытие попап редактирование профиля
 popupEditOpen.addEventListener("click", () => { 
-  popupForm.open();
+  profilePopup.open();
   validationFormEdit.resetValidaionForm();
   const { name, about } = userInfo.getUserInfo();
   nameInput.value = name;
@@ -140,7 +143,7 @@ const popupFormWithAvatar = new PopupWithForm('.popup_type_avatar', {
     popupFormWithAvatar.renderLoading(true);
     api.editProfileAvatar(data)
     .then((res) => {
-      userInfo.setUserAvatar(res)
+      userInfo.setUserInfo(res)
       popupFormWithAvatar.close();
     })
     .catch((err) => {
