@@ -2,7 +2,7 @@ export default class Api {
     constructor(apiConfig) {
         this._url = apiConfig.url;
         this._headers = apiConfig.headers;
-    }
+    };
 
     getInitialCardsApi() {
       return fetch(`${this._url}/cards`, {
@@ -10,7 +10,7 @@ export default class Api {
          headers: this._headers
       })
       .then(res => this._checkError(res))
-    } 
+    };
 
     getUserInfoApi() {
         return fetch(`${this._url}/users/me`, {
@@ -18,7 +18,7 @@ export default class Api {
             headers: this._headers
           })
           .then(res => this._checkError(res))
-    }
+    };
 
     addCardElements(data) {
         return fetch(`${this._url}/cards`, {
@@ -27,7 +27,7 @@ export default class Api {
           body: JSON.stringify(data),
         })
         .then(res => this._checkError(res))
-    }
+    };
 
     editProfile(data) {
         return fetch(`${this._url}/users/me`, {
@@ -39,47 +39,47 @@ export default class Api {
           })
         })
         .then(res => this._checkError(res))
-    }
+    };
 
-      deleteCard(cardId) {
+    deleteCard(cardId) {
         return fetch(`${this._url}/cards/${cardId}`, {
           method: 'DELETE',
           headers: this._headers
         })
         .then(res => this._checkError(res))
-      }
+    };
 
-      putCardLike(cardId) {
+    putCardLike(cardId) {
         return fetch(`${this._url}/cards/${cardId}/likes`, {
           method: 'PUT',
           headers: this._headers,
         })
         .then(res => this._checkError(res))
-      }
+    }
 
-      deleteCardLike(cardId) {
+    deleteCardLike(cardId) {
         return fetch(`${this._url}/cards/${cardId}/likes`, {
           method: 'DELETE',
           headers: this._headers,
         })
         .then(res => this._checkError(res))
-      }      
+    }      
 
-      editProfileAvatar(data) {
+    editProfileAvatar(data) {
         return fetch(`${this._url}/users/me/avatar`, {
           method: 'PATCH',
           headers: this._headers,
           body: JSON.stringify(data),
         }).then(res => this._checkError(res))
-      }
+    }
 
     _checkError(res) {
         if (res.ok) {
             return res.json();
         }
         return Promise.reject(`Ошибка: ${res.status}`);
-  }
-}
+    }
+};
 
 
 

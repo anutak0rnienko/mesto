@@ -5,7 +5,6 @@ export default class Card {
     this._link = data.link;
     this._template = template;
     this._handleImgOpen = handleImgOpen;
-    // this._userId = userId;
     this._myId = data.owner._id;
     this._likesArr = data.likes;
     this._putLike = handleCardLike;
@@ -13,11 +12,8 @@ export default class Card {
     this._handleDeleteCard = handleDeleteCard;
     this._cardData = data;
     this._userId = userId;
-    // console.log(this._userId)
-    // console.log(this._handleDeleteCard)
   };
   
-
   _getCardTemplate() {
     this._element = document.querySelector(this._template).content.querySelector('.element').cloneNode(true);
     return this._element;
@@ -37,7 +33,6 @@ export default class Card {
     this._buttonLike = this._element.querySelector('.element__like');
     this._buttonDelete = this._element.querySelector('.element__delete');
     this._counterLikes = this._element.querySelector('.element__numberlike');
-    // this._counterLikes.textContent = this._likesArr.length;
     this.updatesLikes(this._cardData);
     this.checkCardDelete();
     this._setEventListeners();
@@ -54,7 +49,7 @@ export default class Card {
       }));
   };
 
-      // Проверка наличия значка корзины 
+  // Проверка наличия значка корзины 
   checkCardDelete() {
     if (this._myId !== this._userId) {
       this._buttonDelete.remove();

@@ -13,14 +13,14 @@ export default class PopupWithForm extends Popup {
         this._valueInput = {};
         this._popupInput.forEach((input) => {
         this._valueInput[input.name] = input.value;
-    });
+        });
         return this._valueInput;
     }
 
     close() {
         super.close();
         this._form.reset();
-      }
+    }
 
     setEventListeners() {
         super.setEventListeners();
@@ -37,5 +37,5 @@ export default class PopupWithForm extends Popup {
         } else {
           this._submitButton.textContent = this._submitButtonSave;
         }
-      }
+    }
 };

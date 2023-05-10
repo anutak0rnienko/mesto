@@ -1,6 +1,6 @@
 import Card from "../components/Сard.js";
 import FormValidator from "../components/FormValidator.js";
-import { initialCards, apiConfig } from "../utils/constants.js";
+import { apiConfig } from "../utils/constants.js";
 import { validationConfig } from "../utils/constants.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
@@ -15,7 +15,7 @@ const api = new Api(apiConfig);
 
 const userInfo = new UserInfo({elementUserName: '.profile__name', elementUserJob: '.profile__text', elementUserAvatar: '.profile__avatar-image'});
 
-let userId
+let userId = null;
 
 Promise.all([api.getUserInfoApi(), api.getInitialCardsApi()])
 .then(([user, card]) => {
@@ -23,10 +23,8 @@ Promise.all([api.getUserInfoApi(), api.getInitialCardsApi()])
   userInfo.setUserInfo(user);
   userInfo.setUserAvatar(user);
   cardSection.renderСards(card)
-  console.log(userId)
 })
 .catch((err) => console.log(err));
-
 
 // cоздание карточки
 const createCard = (data) => {
@@ -47,16 +45,14 @@ const createCard = (data) => {
       card.updatesLikes(res)
     })
     .catch((err) => console.log(err))
-  },handleDeleteCard: (cardID, cardElement) => {
-    popupFormDelete.open(cardID, cardElement);
+  },handleDeleteCard: (ID, cardObject) => {
+    popupFormDelete.openPopupDelete(ID, cardObject);
   }}, userId)
     return card.createCardElement();
 };
 
 const cardSection = new Section({renderer: (card) => {
   cardSection.addItem(createCard(card))}}, '.elements');
-  // cardSection.renderСards(initialCards);
-
 
 //Валидация
 const validationFormEdit = new FormValidator(validationConfig, formValidation);
@@ -72,10 +68,7 @@ validationFormAvatar.enableValidationForm();
 const popupImage = new PopupWithImage('.popup_type_image');
 popupImage.setEventListeners();
 
-
-//Слушатели событий//
 //реждактирование профиля 
-
 const popupForm = new PopupWithForm('.popup_type_edit-profile', {handleFormSubmit: (data) => {
   popupForm.renderLoading(true)
   api.editProfile(data)
@@ -124,21 +117,21 @@ popupBtnAdd.addEventListener('click', () => {
 });
 
 //попап удаление карточки
-// const popupFormDelete = new PopupWithDelete('.popup_type_delete');
 const popupFormDelete = new PopupWithDelete('.popup_type_delete', {
-  handleFormSubmit: (id, card) => {
+  handleFormSubmit: (cardID, cardElement) => {
     popupFormDelete.renderLoading(true);
-    api.deleteCard(id)
+    api.deleteCard(cardID)
     .then(() => {
-      card.deleteElement();
+      cardElement.deleteElement();
       popupFormDelete.close();
     })
-    .catch((err) => alert(err))
+    .catch((err) => console.log(err))
     .finally(() => {
-      popupFormDelete.renderLoading(false);
+      popupFormDelete.renderLoading(false)
     })
   }
-})
+});
+
 popupFormDelete.setEventListeners();
 
 //редактирование аватара
@@ -154,14 +147,14 @@ const popupFormWithAvatar = new PopupWithForm('.popup_type_avatar', {
       console.log(err);
   })
     .finally(() => {popupFormWithAvatar.renderLoading(false)});
-}}) 
+}});
 
 popupFormWithAvatar.setEventListeners();
 
 //открытие попап редактирования аватара
 popupAvatarButton.addEventListener('click', () => {
   popupFormWithAvatar.open();
-})
+});
 
 
 
